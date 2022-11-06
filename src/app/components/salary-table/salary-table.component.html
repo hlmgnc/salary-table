@@ -37,13 +37,14 @@
         {{ employee.employee_salary }}
       </td>
       <td style="width: 5rem">
+        <p-toast></p-toast>
         <button
           pButton
           pRipple
           type="button"
           icon="pi pi-pencil"
           class="p-button-rounded p-button-success p-button-text"
-          (click)="onUpdate(employee)"
+          (click)="show(employee)"
         ></button>
       </td>
     </tr>

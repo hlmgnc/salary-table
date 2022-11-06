@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { Employee } from 'src/Employee';
-import { EMPLOYEES } from 'src/mock-list';
-import { FormComponent } from '../components/form/form.component';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Employee, EmployeeData } from 'src/Employee';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeeService {
-  private apiUrl = 'http://dummy.restapiexample.com/api/v1/employees';
+  private apiUrl = 'http://dummy.restapiexample.com/api/v1';
   open: any;
 
   constructor(private http: HttpClient) {}
 
-  getEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(this.apiUrl);
+  getEmployees(): Observable<{ data: Employee[] }> {
+    return this.http.get<{ data: Employee[] }>(`${this.apiUrl}/employees`);
+  }
+
+  updateEmployee(employee: EmployeeData): Observable<{ data: EmployeeData }> {
+    const url = `${this.apiUrl}/update/${employee.id}`;
+    return this.http.put<{ data: EmployeeData }>(url, employee);
   }
 }
